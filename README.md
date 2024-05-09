@@ -37,19 +37,22 @@ VSCODE_TUNNEL_AUTH=microsoft
 VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat
 
 # Create the container instance
-az container create -g $RG --name '$CONTAINER_NAME' -l $LOCATION \
+az container create \
+  -g $RG \
+  -l $LOCATION \
+  --name $CONTAINER_NAME \
   --image $IMAGE \
-  --vnet '$VNET' \
-  --subnet '$SUBNET' \
+  --vnet $VNET \
+  --subnet $SUBNET \
   --environment-variables \
     VSCODE_TUNNEL_NAME=$VSCODE_TUNNEL_NAME \
     VSCODE_TUNNEL_AUTH=$VSCODE_TUNNEL_AUTH \
     VSCODE_EXTENSIONS=$VSCODE_EXTENSIONS
 
 # Get logs to see login code and/or URL
-az container logs -g $RG --name '$CONTAINER_NAME'
+az container logs -g $RG --name $CONTAINER_NAME --follow
 
 # Cleanup - delete the container instance
-az container delete -g $RG --name '$CONTAINER_NAME' --yes
+az container delete -g $RG --name $CONTAINER_NAME --yes
 
 ```

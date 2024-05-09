@@ -12,6 +12,7 @@ if [ $# -eq 0 ]; then
         echo "Using provided access token for $VSCODE_TUNNEL_AUTH..."
         code tunnel user login --provider $VSCODE_TUNNEL_AUTH --access-token $VSCODE_TUNNEL_ACCESS_TOKEN
     else
+        echo "Prompting user to authenticate to $VSCODE_TUNNEL_AUTH..."
         code tunnel user login --provider $VSCODE_TUNNEL_AUTH
     fi
 

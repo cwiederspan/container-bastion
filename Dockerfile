@@ -21,30 +21,30 @@ COPY vscode-tunnel.sh /vscode-tunnel.sh
 RUN chmod +x /vscode-tunnel.sh
 
 # Personal preferences
-RUN echo 'alias ll="ls -alh --color=auto"' >> /etc/profile.d/aliases.sh
-RUN mv /etc/profile.d/color_prompt.sh.disabled /etc/profile.d/color_prompt.sh
-ENV ENV="/etc/profile"
+# RUN echo 'alias ll="ls -alh --color=auto"' >> /etc/profile.d/aliases.sh
+# RUN mv /etc/profile.d/color_prompt.sh.disabled /etc/profile.d/color_prompt.sh
+# ENV ENV="/etc/profile"
 
 # Create user
-ARG USER_UID=1000
-ARG USER_GID=1000
-ARG USER_NAME=vscode
-RUN addgroup -g ${USER_GID} ${USER_NAME} && \
-    adduser --uid ${USER_UID} --ingroup ${USER_NAME} --ingroup ${USER_NAME} \
-    --gecos "${USER_NAME}" --disabled-password ${USER_NAME}
+# ARG USER_UID=1000
+# ARG USER_GID=1000
+# ARG USER_NAME=vscode
+# RUN addgroup -g ${USER_GID} ${USER_NAME} && \
+#     adduser --uid ${USER_UID} --ingroup ${USER_NAME} --ingroup ${USER_NAME} \
+#     --gecos "${USER_NAME}" --disabled-password ${USER_NAME}
 
 # Enble sudo for user
-RUN addgroup ${USER_NAME} wheel
-RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wheel
+# RUN addgroup ${USER_NAME} wheel
+# RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wheel
 
 # Workspace config
-ARG VSCODE_WORKSPACE_DIR=/workspace
-ENV VSCODE_WORKSPACE_DIR=${VSCODE_WORKSPACE_DIR}
-RUN mkdir -p ${VSCODE_WORKSPACE_DIR} && chown ${USER_UID}:${USER_GID} ${VSCODE_WORKSPACE_DIR}
-WORKDIR ${VSCODE_WORKSPACE_DIR}
+# ARG VSCODE_WORKSPACE_DIR=/workspace
+# ENV VSCODE_WORKSPACE_DIR=${VSCODE_WORKSPACE_DIR}
+# RUN mkdir -p ${VSCODE_WORKSPACE_DIR} && chown ${USER_UID}:${USER_GID} ${VSCODE_WORKSPACE_DIR}
+# WORKDIR ${VSCODE_WORKSPACE_DIR}
 
 # Annotate for workspace volume mount (optional)
-VOLUME [ "${VSCODE_WORKSPACE_DIR}" ]
+# VOLUME [ "${VSCODE_WORKSPACE_DIR}" ]
 
 # Authentication provider for tunnel server: microsoft, github
 ENV VSCODE_TUNNEL_AUTH=microsoft
@@ -60,5 +60,5 @@ ENV VSCODE_TUNNEL_NAME=
 # Optional install extensions comma-separated list (no spaces)
 ENV VSCODE_EXTENSIONS=
 
-USER ${USER_UID}
+# USER ${USER_UID}
 CMD ["/vscode-tunnel.sh"]
