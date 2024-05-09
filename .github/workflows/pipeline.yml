@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - 'Dockerfile'
+      - 'vscode-tunnel.sh'
       - '.github/workflows/pipeline.yml'
 env:
   IMAGE_NAME: ${{ vars.DOCKER_IMAGE }}
