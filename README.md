@@ -11,8 +11,8 @@ NOTE: This project highly leverages work done by my teammate Chris Romp in [this
 docker build -t cwiederspan/my-container-bastion:latest .
 
 docker run --detach \
-    --volume .:/home/workspace \
-    --workdir /home/workspace \
+    --volume .:/workspace \
+    --workdir /workspace \
     --name mytunnel \
     -e TUNNEL_NAME=cdwtesting20240510 \
     cwiederspan/my-container-bastion:latest
@@ -38,10 +38,8 @@ CONTAINER_NAME=acr-tunnel1
 VNET=vnet-name # optional - for VNet integration
 SUBNET=subnet-name # optional/required with VNet - will be delegated to ACI
 TUNNEL_NAME=$CONTAINER_NAME # reuse container name or change
-# VSCODE_TUNNEL_AUTH=microsoft
-# VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat
 GIT_REPO_URL=https://github.com/cwiederspan/cdw-speechtesting-20240403.git
-GIT_REPO_MOUNT_PATH=/home/workspace
+GIT_REPO_MOUNT_PATH=/workspace
 
 # Create the container instance
 az container create \
@@ -55,9 +53,6 @@ az container create \
   --gitrepo-mount-path $GIT_REPO_MOUNT_PATH \
   --environment-variables \
     TUNNEL_NAME=$TUNNEL_NAME
-  
-  #   VSCODE_EXTENSIONS=$VSCODE_EXTENSIONS
-
 
 # Get logs to see login code and/or URL
 az container logs -g $RG --name $CONTAINER_NAME --follow
