@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 
 RUN apt-get update && \
-    apt-get install -y git curl && \
+    apt-get install -y git curl zsh && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sL "https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64" \
