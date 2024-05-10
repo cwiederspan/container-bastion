@@ -26,28 +26,28 @@ RUN chmod +x /vscode-tunnel.sh
 # ENV ENV="/etc/profile"
 
 # Create user
-# ARG USER_UID=1000
-# ARG USER_GID=1000
-# ARG USER_NAME=vscode
-# RUN addgroup -g ${USER_GID} ${USER_NAME} && \
-#     adduser --uid ${USER_UID} --ingroup ${USER_NAME} --ingroup ${USER_NAME} \
-#     --gecos "${USER_NAME}" --disabled-password ${USER_NAME}
+ARG USER_UID=1000
+ARG USER_GID=1000
+ARG USER_NAME=vscode
+RUN addgroup -g ${USER_GID} ${USER_NAME} && \
+    adduser --uid ${USER_UID} --ingroup ${USER_NAME} --ingroup ${USER_NAME} \
+    --gecos "${USER_NAME}" --disabled-password ${USER_NAME}
 
 # Enble sudo for user
-# RUN addgroup ${USER_NAME} wheel
-# RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wheel
-
-# Workspace config
-# ARG VSCODE_WORKSPACE_DIR=/workspaces
-# ENV VSCODE_WORKSPACE_DIR=${VSCODE_WORKSPACE_DIR}
-# RUN mkdir -p ${VSCODE_WORKSPACE_DIR} && chown ${USER_UID}:${USER_GID} ${VSCODE_WORKSPACE_DIR}
-# WORKDIR ${VSCODE_WORKSPACE_DIR}
+RUN addgroup ${USER_NAME} wheel
+RUN echo '%wheel ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/wheel
 
 # Workspace config
 ARG VSCODE_WORKSPACE_DIR=/workspaces
 ENV VSCODE_WORKSPACE_DIR=${VSCODE_WORKSPACE_DIR}
-RUN mkdir -p ${VSCODE_WORKSPACE_DIR}
+RUN mkdir -p ${VSCODE_WORKSPACE_DIR} && chown ${USER_UID}:${USER_GID} ${VSCODE_WORKSPACE_DIR}
 WORKDIR ${VSCODE_WORKSPACE_DIR}
+
+# Workspace config
+# ARG VSCODE_WORKSPACE_DIR=/workspaces
+# ENV VSCODE_WORKSPACE_DIR=${VSCODE_WORKSPACE_DIR}
+# RUN mkdir -p ${VSCODE_WORKSPACE_DIR}
+# WORKDIR ${VSCODE_WORKSPACE_DIR}
 
 # Annotate for workspace volume mount (optional)
 VOLUME [ "${VSCODE_WORKSPACE_DIR}" ]
@@ -66,5 +66,5 @@ ENV VSCODE_TUNNEL_NAME=
 # Optional install extensions comma-separated list (no spaces)
 ENV VSCODE_EXTENSIONS=
 
-# USER ${USER_UID}
+USER ${USER_UID}
 CMD ["/vscode-tunnel.sh"]
