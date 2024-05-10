@@ -9,4 +9,4 @@ RUN apt-get update && \
     tar -xf /tmp/vscode-cli.tar.gz -C /usr/bin && \
     rm /tmp/vscode-cli.tar.gz
 
-CMD [ "code", "tunnel", "--accept-server-license-terms" ]
+CMD [ "code", "tunnel", "--accept-server-license-terms", "--provider $VSCODE_TUNNEL_AUTH" ]
