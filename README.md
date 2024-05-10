@@ -35,6 +35,8 @@ SUBNET=subnet-name # optional/required with VNet - will be delegated to ACI
 VSCODE_TUNNEL_NAME=$CONTAINER_NAME # reuse container name or change
 VSCODE_TUNNEL_AUTH=microsoft
 VSCODE_EXTENSIONS=humao.rest-client,GitHub.copilot-chat
+GIT_REPO_URL=https://github.com/cwiederspan/cdw-speechtesting-20240403.git
+GIT_REPO_MOUNT_PATH=/workspaces
 
 # Create the container instance
 az container create \
@@ -44,6 +46,8 @@ az container create \
   --image $IMAGE \
   --vnet $VNET \
   --subnet $SUBNET \
+  --gitrepo-url $GIT_REPO_URL \
+  --gitrepo-mount-path $GIT_REPO_MOUNT_PATH \
   --environment-variables \
     VSCODE_TUNNEL_NAME=$VSCODE_TUNNEL_NAME \
     VSCODE_TUNNEL_AUTH=$VSCODE_TUNNEL_AUTH \
