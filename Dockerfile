@@ -43,8 +43,14 @@ RUN chmod +x /vscode-tunnel.sh
 # RUN mkdir -p ${VSCODE_WORKSPACE_DIR} && chown ${USER_UID}:${USER_GID} ${VSCODE_WORKSPACE_DIR}
 # WORKDIR ${VSCODE_WORKSPACE_DIR}
 
+# Workspace config
+ARG VSCODE_WORKSPACE_DIR=/workspace
+ENV VSCODE_WORKSPACE_DIR=${VSCODE_WORKSPACE_DIR}
+RUN mkdir -p ${VSCODE_WORKSPACE_DIR}
+WORKDIR ${VSCODE_WORKSPACE_DIR}
+
 # Annotate for workspace volume mount (optional)
-# VOLUME [ "${VSCODE_WORKSPACE_DIR}" ]
+VOLUME [ "${VSCODE_WORKSPACE_DIR}" ]
 
 # Authentication provider for tunnel server: microsoft, github
 ENV VSCODE_TUNNEL_AUTH=microsoft
