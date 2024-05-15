@@ -2,7 +2,7 @@
 
 A container-based bastion for working with resources in a protected VNET in Azure.
 
-NOTE: This project highly leverages work done by my teammate Chris Romp in [this repo](https://github.com/ChrisRomp/vscodetunnel).
+> NOTE: This project highly leverages work done by my teammate Chris Romp in [this repo](https://github.com/ChrisRomp/vscodetunnel).
 
 ## Test Locally
 
@@ -23,7 +23,7 @@ docker logs -n 50 mytunnel
 
 ## Azure Usage
 
-Use the Azure CLI to run the bation in an Azure Container Instance (ACI) within a designated existing VNET.
+Use the Azure CLI to run the bastion in an Azure Container Instance (ACI) within a designated existing VNET.
 
 ```bash
 
